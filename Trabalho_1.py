@@ -229,11 +229,11 @@ def find_path_step(map, points, step, interface, custos):
     return path, custo
 
 def gera_array_aleatorio(agilidades):
-    array = [[0 for col in range(29)] for row in range(10)]
-    for i in range(10):
+    array = [[0 for col in range(29)] for row in range(6)]
+    for i in range(6):
         aux = []
         while len(aux) < 8:
-            indice = randint(0,30)
+            indice = randint(0,28)
             if indice not in aux:
                 array[i][indice] = 1
                 aux.append(indice)
@@ -257,27 +257,27 @@ def update_array(array, max, atual):
     n = math.ceil(atual/(max/32))
     num = randint(1,n)
     for i in range(num):
-        i = randint(0,6)
-        j = randint(0,30)
+        i = randint(0,5)
+        j = randint(0,28)
         if aux[i][j] == 0:
             aux[i][j] = 1
-            k = randint(0,30)
+            k = randint(0,28)
             while k == j or aux[i][k] == 0:
-                k = randint(0,30)
+                k = randint(0,28)
             aux[i][k] = 0
         else:
             aux[i][j] = 0
-            k = randint(0,30)
+            k = randint(0,28)
             while k == j or aux[i][k] == 1:
-                k = randint(0,30)
+                k = randint(0,28)
             aux[i][k] = 1
     return aux
 
 def objective(array, etapas, agilidades):
     total = 0
-    for j in range(29):
+    for j in range(28):
         soma = 0
-        for i in range(10):
+        for i in range(6):
             soma += array[i][j] * agilidades[i]
         if soma == 0:
             soma = 0.000001
@@ -328,7 +328,7 @@ interface.add_map(map)
 points = get_points(map)
 path = []
 custos = []
-for i in range(31):
+for i in range(28):
     caminho, custo = find_path_step(map,points,i,interface,custos)
     path.append(caminho)
     custos.append(custo)
